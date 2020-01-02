@@ -10,6 +10,7 @@ import web.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -27,16 +28,42 @@ public class UserController {
     }
 
     @RequestMapping(value = "/addUser", method = RequestMethod.GET)
-    public String addUserGet(ModelMap model) {
+    public String addUserGet() {
         return "addUser";
     }
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public String addUserPost(HttpServletRequest request) {
+    public void addUserPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         User user = new User(firstName, lastName);
         userService.addUser(user);
-        return "index";
+        response.sendRedirect("/");
+    }
+
+    @RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
+    public void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        userService.deleteUser(id);
+        response.sendRedirect("/");
+    }
+
+    @RequestMapping(value = "/editUser", method = RequestMethod.GET)
+    public String editUserGet(HttpServletRequest request, ModelMap modelMap) {
+        Long id = Long.parseLong(request.getParameter("id"));
+        User user = userService.getUser(id);
+        modelMap.put("user", user);
+        return "editUser";
+    }
+
+    @RequestMapping(value = "/editUser", method = RequestMethod.POST)
+    public void editUserPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        User user = new User(firstName, lastName);
+        user.setId(id);
+        userService.editUser(user);
+        response.sendRedirect("/");
     }
 }
