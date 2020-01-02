@@ -13,15 +13,15 @@
         <caption><h2>Users</h2></caption>
         <tr>
             <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Login</th>
+            <th>Password</th>
             <th>Action</th>
         </tr>
         <c:forEach var="users" items="${users}">
             <tr>
                 <td><c:out value="${users.id}" /></td>
-                <td><c:out value="${users.firstName}" /></td>
-                <td><c:out value="${users.lastName}" /></td>
+                <td><c:out value="${users.login}" /></td>
+                <td><c:out value="${users.password}" /></td>
                 <td>
                     <a href="/editUser?id=<c:out value='${users.id}' />">Edit</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;

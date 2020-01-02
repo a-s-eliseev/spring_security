@@ -10,18 +10,18 @@
         <table border="1" cellpadding="5">
             <caption><h2>Add User</h2></caption>
             <tr>
-                <th>First Name: </th>
+                <th>Login: </th>
                 <td>
-                    <input type="text" name="firstName" size="45" required
-                           value="<c:out value='${user.firstName}' />"
+                    <input type="text" name="login" size="45" required
+                           value="<c:out value='${user.login}' />"
                     />
                 </td>
             </tr>
             <tr>
-                <th>LastName: </th>
+                <th>Password: </th>
                 <td>
-                    <input type="text" name="lastName" size="45" required
-                           value="<c:out value='${user.lastName}' />"
+                    <input type="text" name="password" size="45" required
+                           value="<c:out value='${user.password}' />"
                     />
                 </td>
             </tr>

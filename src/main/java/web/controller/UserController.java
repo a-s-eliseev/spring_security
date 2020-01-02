@@ -34,9 +34,9 @@ public class UserController {
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public void addUserPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        User user = new User(firstName, lastName);
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+        User user = new User(login, password);
         userService.addUser(user);
         response.sendRedirect("/");
     }
@@ -59,9 +59,9 @@ public class UserController {
     @RequestMapping(value = "/editUser", method = RequestMethod.POST)
     public void editUserPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Long id = Long.parseLong(request.getParameter("id"));
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        User user = new User(firstName, lastName);
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+        User user = new User(login, password);
         user.setId(id);
         userService.editUser(user);
         response.sendRedirect("/");

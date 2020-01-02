@@ -1,6 +1,7 @@
 package web.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -11,18 +12,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "firstName")
-    private String firstName;
+    @Column(name = "login", unique = true)
+    private String login;
 
-    @Column(name = "lastName")
-    private String lastName;
+    @Column(name = "password")
+    private String password;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
+    private Set<Role> roles;
 
     public User() {
     }
 
-    public User(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
     }
 
     public long getId() {
@@ -33,19 +37,19 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getLogin() {
+        return login;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
