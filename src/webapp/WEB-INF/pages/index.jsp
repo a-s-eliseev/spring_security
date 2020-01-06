@@ -6,30 +6,37 @@
 </head>
 <body>
 <div align="center">
-    <a href="/addUser">Add New User</a>
+    <a href="/logout">Logout</a>
+    <a href="/admin/addUser">Add New User</a>
 </div>
 <div align="center">
     <table border="1" cellpadding="5">
         <caption><h2>Users</h2></caption>
         <tr>
             <th>ID</th>
-            <th>Login</th>
+            <th>Username</th>
             <th>Password</th>
+            <th>Roles</th>
             <th>Action</th>
         </tr>
         <c:forEach var="users" items="${users}">
             <tr>
                 <td><c:out value="${users.id}" /></td>
-                <td><c:out value="${users.login}" /></td>
+                <td><c:out value="${users.username}" /></td>
                 <td><c:out value="${users.password}" /></td>
                 <td>
-                    <a href="/editUser?id=<c:out value='${users.id}' />">Edit</a>
+                    <c:forEach var="role" items="${users.roles}">
+                        ${role.role};
+                    </c:forEach>
+                </td>
+                <td>
+                    <a href="/admin/editUser?id=<c:out value='${users.id}' />">Edit</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="/deleteUser?id=<c:out value='${users.id}' />">Delete</a>
+                    <a href="/admin/deleteUser?id=<c:out value='${users.id}' />">Delete</a>
                 </td>
             </tr>
         </c:forEach>
     </table>
 </div>
-</body>>
+</body>
 </html>

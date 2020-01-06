@@ -15,24 +15,35 @@ public class UserDaoImpl implements UserDao {
     private SessionFactory sessionFactory;
 
     @Override
+    public List<User> listUsers() {
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
+        return query.getResultList();
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return sessionFactory.getCurrentSession().get(User.class, id);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        User user = (User) sessionFactory.getCurrentSession().createQuery("from User where username = :username")
+                .setParameter("username", username)
+                .uniqueResult();
+        if (user != null) {
+            return user;
+        }
+        return null;
+    }
+
+    @Override
     public void addUser(User user) {
         sessionFactory.getCurrentSession().save(user);
     }
 
     @Override
-    public List<User> listUsers() {
-        TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
-        return query.getResultList();
-    }
-
-    @Override
     public void deleteUser(User user) {
         sessionFactory.getCurrentSession().delete(user);
-    }
-
-    @Override
-    public User getUser(Long id) {
-        return sessionFactory.getCurrentSession().get(User.class, id);
     }
 
     @Override

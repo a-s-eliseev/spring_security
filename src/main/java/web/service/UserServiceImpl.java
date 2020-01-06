@@ -1,24 +1,24 @@
 package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
+import web.model.Role;
 import web.model.User;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
 
-    @Transactional
-    @Override
-    public void addUser(User user) {
-        userDao.addUser(user);
-    }
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
     @Override
@@ -28,20 +28,43 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
+    public User getUserById(Long id) {
+        return userDao.getUserById(id);
+    }
+
+    @Transactional
+    @Override
+    public User getUserByUsername(String username) {
+        return userDao.getUserByUsername(username);
+    }
+
+    @Transactional
+    @Override
+    public boolean addUser(User user) {
+
+        User userFromDB = userDao.getUserByUsername(user.getUsername());
+
+        if (userFromDB != null) {
+            return false;
+        }
+
+        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userDao.addUser(user);
+        return true;
+    }
+
+    @Transactional
+    @Override
     public void deleteUser(Long id) {
-        User user = userDao.getUser(id);
+        User user = userDao.getUserById(id);
         userDao.deleteUser(user);
     }
 
     @Transactional
     @Override
     public void editUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.editUser(user);
-    }
-
-    @Transactional
-    @Override
-    public User getUser(Long id) {
-        return userDao.getUser(id);
     }
 }

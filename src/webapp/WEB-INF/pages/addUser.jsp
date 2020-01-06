@@ -6,14 +6,17 @@
 </head>
 <body>
 <div align="center">
-    <form action="<c:url value="/addUser"/>" method="post">
+    <div>
+        <a href="/logout">Logout</a>
+    </div>
+    <form action="<c:url value="/admin/addUser"/>" method="post">
         <table border="1" cellpadding="5">
             <caption><h2>Add User</h2></caption>
             <tr>
-                <th>Login: </th>
+                <th>Username: </th>
                 <td>
-                    <input type="text" name="login" size="45" required
-                           value="<c:out value='${user.login}' />"
+                    <input type="text" name="username" size="45" required
+                           value="<c:out value='${user.username}' />"
                     />
                 </td>
             </tr>
