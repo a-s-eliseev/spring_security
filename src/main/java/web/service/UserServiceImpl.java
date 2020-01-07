@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         User user = userDao.getUserById(id);
+        user.setRoles(null);
         userDao.deleteUser(user);
     }
 

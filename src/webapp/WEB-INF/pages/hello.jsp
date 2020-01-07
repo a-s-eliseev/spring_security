@@ -15,7 +15,7 @@
             <th>Role: </th>
             <td>
                 <c:forEach var="role" items="${user.roles}">
-                    ${role.role};
+                    ${role.name};
                 </c:forEach>
             </td>
         </tr>
