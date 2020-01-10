@@ -13,8 +13,12 @@ import java.util.List;
 @Controller
 public class AdminController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public AdminController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping(value = "/admin")
     public String listUsers(ModelMap modelMap) {
