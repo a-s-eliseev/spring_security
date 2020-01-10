@@ -38,11 +38,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/WEB-INF/pages/**").addResourceLocations("/pages/");
     }
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-    }
-
     @Bean
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

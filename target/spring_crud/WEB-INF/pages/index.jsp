@@ -26,7 +26,7 @@
                 <td><c:out value="${users.password}" /></td>
                 <td>
                     <c:forEach var="role" items="${users.roles}">
-                        ${role.role};
+                        ${role.name};
                     </c:forEach>
                 </td>
                 <td>

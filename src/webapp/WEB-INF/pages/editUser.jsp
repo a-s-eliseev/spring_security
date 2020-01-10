@@ -34,10 +34,18 @@
             <tr>
                 <th>Roles: </th>
                 <td>
+                    <c:forEach var="role" items="${user.roles}">
+                        <c:if test="${role.id == 1}">
+                            <c:set var="ROLE_USER" value="ROLE_USER" />
+                        </c:if>
+                        <c:if test="${role.id == 2}">
+                            <c:set var="ROLE_ADMIN" value="ROLE_ADMIN" />
+                        </c:if>
+                    </c:forEach>
                     <input type="checkbox" name="role" value="ROLE_USER"
-                            <c:if test="${role_user != null}"> checked="checked"</c:if>/>USER<br>
+                            <c:if test="${ROLE_USER == 'ROLE_USER'}"> checked=checked</c:if>/>USER<br>
                     <input type="checkbox" name="role" value="ROLE_ADMIN"
-                            <c:if test="${role_admin != null}"> checked="checked"</c:if>/>ADMIN
+                            <c:if test="${ROLE_ADMIN == 'ROLE_ADMIN'}"> checked=checked</c:if>/>ADMIN
                 </td>
             </tr>
             <tr>
