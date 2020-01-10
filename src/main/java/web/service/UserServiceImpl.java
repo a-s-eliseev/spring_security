@@ -5,7 +5,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
-import web.model.Role;
 import web.model.User;
 
 import java.util.Collections;
@@ -16,6 +15,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private RoleService roleService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -48,7 +50,7 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        user.setRoles(Collections.singleton(roleService.getRole(1L)));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.addUser(user);
         return true;
