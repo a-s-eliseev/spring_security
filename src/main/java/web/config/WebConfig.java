@@ -30,12 +30,8 @@ import java.util.Properties;
 @ComponentScan("web")
 public class WebConfig implements WebMvcConfigurer {
 
-    private final Environment env;
-
     @Autowired
-    public WebConfig(Environment env) {
-        this.env = env;
-    }
+    private Environment env;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
