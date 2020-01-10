@@ -16,12 +16,8 @@ import web.config.handler.LoginSuccessHandler;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
-
     @Autowired
-    public SecurityConfig(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+    private UserDetailsService userDetailsService;
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
